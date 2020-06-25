@@ -43,18 +43,24 @@ with open(budget_data_csv, 'r') as csvfile:
     change = list(changes)
     average_change = sum(change)/len(change)
 
-    #Print statements
-    print("Financial Analysis")
-    print("--------------------------------------")
-    print(f"Total Months: {str(total_months)}")
-    print(f"Total: ${str(total_amount)}")
-    print(f"Average Change: ${str(average_change)}")
-    print(f"Greatest Increase in Profits: {str(greatest_increase)}")
-    print(f"Greatest Decrease in Profits: {str(greatest_decrease)}")
-    
+#Print statements
+
+Text = (
+    f"Financial Analysis\n" 
+    f"---------------------\n" 
+    f"Total Months: {total_months}\n" 
+    f"Total: ${total_amount}\n"
+    f"Average Change: ${average_change}\n" 
+    f"Greatest Increase in Profits: {greatest_increase}\n" 
+    f"Greatest Decrease in ProfitsL {greatest_decrease}\n" 
+) 
+
+print(Text)
 
 output_file = os.path.join("Analysis", "Financial_Analysis.txt")
 
 with open(output_file, "w") as datafile:
    writer = csv.writer(datafile)
+
+   datafile.write(Text)
     
