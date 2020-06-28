@@ -9,6 +9,7 @@ average_change = 0
 prev_rev = 0
 revenue_change = 0
 changes = []
+month_change = []
 greatest_increase = ["", 0]
 greatest_decrease = ["", 0]
 
@@ -29,6 +30,8 @@ with open(budget_data_csv, 'r') as csvfile:
         #Average of the changes in Profit/Loss
         revenue_change = int(row[1]) - prev_rev
         prev_rev = int(row[1])
+        changes = changes + [revenue_change]
+        month_change = month_change + [row[0]]
         
                 #Greatest Increase/Decrease in Profit
         if (revenue_change > greatest_increase[1]):
@@ -39,9 +42,7 @@ with open(budget_data_csv, 'r') as csvfile:
             greatest_decrease[1] = revenue_change
             greatest_decrease[0] = row[0]
 
-    changes.append(revenue_change)
-    change = list(changes)
-    average_change = sum(change)/len(change)
+average_change = sum(changes) / len(month_change)
 
 #Print statements
 

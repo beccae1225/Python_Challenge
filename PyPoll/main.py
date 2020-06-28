@@ -1,35 +1,63 @@
 import os
-import csv 
+import csv
 
-election_data_csv = os.path.join('Resources', 'election_data.csv')
+election_data_csv = os.path.join("Resources", "election_data.csv")
 
-candidate_list = {row[2]}
-candidate = 0
 total_votes = 0
+candidate_list = []
+vote_counts = []
+unique_list = []
+vote_percents = []
 
 with open(election_data_csv) as csvfile:
-    csvreader = csv.reader(csvfile, delimiter=',')
+    csvreader=csv.reader(csvfile, delimiter=",")
 
     csv_header = next(csvreader)
-    #print(f'CSV Header: {csv_header}')
+    print(csv_header)
 
-    for row in csvreader:
-        #Total Vote Counts
+    for i in csvreader:
+
+        #Vote Count
         total_votes = total_votes + 1
-        
-        #Complete List of Candidates
-        for x in candidate_list:
-            print(candidate_list)
 
-        #Percentage of Votes per Candidate
+        #Candidate Names to List
+        candidate_list.append(i[2])
 
-        #Total number of votes per candidate 
+        for j in candidate_list:
+            unique_list.append(j)
 
-        #Winner
+            #Total Votes per Candidate
+            votes = candidate_list.count(j)
+            vote_counts.append(votes)
 
-    #Print statements
-    print("Election Results")
-    print("-------------------------")
-    print(f"Total Votes: {str(total_votes)}")
-    print("-------------------------")
-    print(candidate_list)
+            #Percentage of Votes
+            percent = (votes/total_votes) * 100
+            vote_percents.append(percent)
+
+        most_votes = max(vote_counts)
+        winner = unique_list[vote_counts.index(most_votes)]
+
+
+print("Election Results\n") 
+print("---------------------------\n")  
+print(f"Total Votes: {total_votes}\n") 
+for i in range(len(unique_list)):
+    print(unique_list[i] + ":" + str(vote_percents[i]) + "% (" + str(vote_counts[i])+ ")")
+print("-----------------------------\n") 
+print(f"The winner is: {winner}")
+
+output_file = os.path.join("Analysis", "Vote_results.txt")
+with open(output_file, "w") as datafile: 
+    writer = csv.writer(datafile)
+
+    datafile.write(f"Election Results\n")
+    datafile.write(f"----------------------\n")
+    datafile.write(f"Total Votes: {total_votes}\n")
+
+    for i in range(len(unique_list)):
+        datafile.write(f"{unique_list[i]}: {str(vote_percents[i])}% ({str(vote_counts[i])})\n")
+
+    datafile.write(f"--------------------")
+    datafile.write(f"The winner is: {winner}")
+
+
