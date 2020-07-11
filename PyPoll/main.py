@@ -4,6 +4,7 @@ import csv
 election_data_csv = os.path.join("Resources", "election_data.csv")
 
 total_votes = 0
+
 candidate_list = []
 vote_counts = []
 unique_list = []
@@ -43,8 +44,7 @@ print("---------------------------\n")
 print(f"Total Votes: {total_votes}\n") 
 for i in range(len(unique_list)):
     print(unique_list[i] + ":" + str(vote_percents[i]) + "% (" + str(vote_counts[i])+ ")")
-print("-----------------------------\n") 
-print(f"The winner is: {winner}")
+v
 
 output_file = os.path.join("Analysis", "Vote_results.txt")
 with open(output_file, "w") as datafile: 
